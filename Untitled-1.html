@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Lanzleigh 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  text-align: center;
+  color: white;
+  z-index: 2;
+  animation: fadeIn 2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  margin: 0;
+  z-index: 3;
+  position: relative;
+  letter-spacing: 1px;
+}
+
+.envelope {
+  width: 240px;
+  height: 150px;
+  background: linear-gradient(145deg, #ff4d6d, #ff1e4d);
+  position: relative;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  transition: transform 0.4s, box-shadow 0.4s;
+  margin-top: 40px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.flap {
+  position: absolute;
+  border-left: 120px solid transparent;
+  border-right: 120px solid transparent;
+  border-bottom: 75px solid #ff1744;
+  top: -75px;
+  transition: transform 0.8s cubic-bezier(.68,-0.55,.27,1.55);
+  transform-origin: bottom;
+}
+
+.letter {
+  position: absolute;
+  width: 220px;
+  height: 130px;
+  background: #fff;
+  top: 10px;
+  left: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.8s;
+  font-weight: bold;
+  color: #ff4d6d;
+  padding: 15px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.open .flap { transform: rotateX(180deg); }
+.open .letter { opacity: 1; transform: translateY(-80px) scale(1.1); }
+
+.question {
+  display: none;
+  margin-top: 25px;
+  animation: fadeInUp 1s ease;
+}
+
+button {
+  margin: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.yes {
+  background: linear-gradient(45deg, #00c853, #69f0ae);
+  color: white;
+}
+
+.yes:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 15px #69f0ae;
+}
+
+.no {
+  background: linear-gradient(45deg, #d50000, #ff5252);
+  color: white;
+}
+
+#response {
+  font-size: 20px;
+  margin-top: 20px;
+  max-width: 420px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.heart {
+  position: absolute;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(1); opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1.8); opacity: 0; }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to { transform: translateY(100vh) rotate(1080deg); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.typing::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <h2>For Lanzleigh 💖</h2>
+
+  <div class="envelope" onclick="openEnvelope()" id="env">
+    <div class="flap"></div>
+    <div class="letter"> HAPPY 3RD ANNIVERSARY BABI I LOVE YOU MWAMWA 💌</div>
+  </div>
+
+  <div class="question" id="question">
+    <h2>Will you go on a virtual date with me? 💻💕</h2>
+    <button class="yes" onclick="sayYes()">Yes 💖</button>
+    <button class="no" onmouseover="moveButton()">No 😅</button>
+  </div>
+
+  <h3 id="response" class="typing"></h3>
+</div>
+
+<script>
+function openEnvelope() {
+  document.getElementById('env').classList.add('open');
+  document.getElementById('bgMusic').play();
+
+  setTimeout(() => {
+    document.getElementById('question').style.display = 'block';
+  }, 800);
+
+  createHearts();
+}
+
+function moveButton() {
+  const btn = document.querySelector('.no');
+  btn.style.position = 'absolute';
+  btn.style.top = Math.random() * window.innerHeight + 'px';
+  btn.style.left = Math.random() * window.innerWidth + 'px';
+}
+
+function typeMessage(text, element, speed = 30) {
+  let i = 0;
+  element.innerHTML = "";
+  function typing() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
+}
+
+function sayYes() {
+  const message = `Yay!! 💖\n\nLanzleigh, from the very beginning until now, I will always choose you. 💕\nEven if this is just a virtual date, my feelings for you are real. 💻❤️\n\nFrom Brent 💌\n"You are the peace in my world." 🌍💖\n"Out of everything, it's always you." ✨`;
+  const responseEl = document.getElementById('response');
+  typeMessage(message, responseEl);
+  createConfetti();
+}
+
+function createHearts() {
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerText = '❤️';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.fontSize = (Math.random() * 25 + 10) + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 250);
+}
+
+function createConfetti() {
+  for (let i = 0; i < 150; i++) {
+    const conf = document.createElement('div');
+    conf.classList.add('confetti');
+    conf.style.left = Math.random() * window.innerWidth + 'px';
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 3000);
+  }
+}
+</script>
+
+</body>
+</html>
